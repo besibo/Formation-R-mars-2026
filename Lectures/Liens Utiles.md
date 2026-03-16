@@ -14,4 +14,4 @@
 - [R colors](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf)
 
 ---
-*Benoît Simon-Bouhet*, *mardi 25 mars 2025*
+*Benoît Simon-Bouhet*, *lundi 16 mars 2026*

@@ -1,0 +1,695 @@
+library(compteR)#
+#
+# Postes de dépenses et dépenses par famille#
+postes.depenses <- c("logement", "nourriture", "autre")#
+depenses <- list(#
+dep.auv = c(360, 0, 0),#
+dep.cre = c(330, 0, 0),#
+dep.dum = c(000, 0, 0),#
+dep.gai = c(330, 0, 0),#
+dep.seg = c(300+1600, 0, 0),#
+dep.sim = c(330, 0, 0)#
+)#
+#
+# --------------------------------------------------------------------------------------------#
+#
+# Liste des participants et nombre de personnes par famille#
+participants <- c("Auvray", "Cresson", "Dumas", "Gaitee", "Seguinaud", "Simon-Bouhet")#
+famille <- c(4, 4, 3, 4, 4, 4)#
+#
+# Nombre de nuitées et de repas par famille#
+nuitees <- c(28,28,21,28,28,28)#
+repas <- c(84,84,63,84,84,84)#
+#
+# ----------------------------------------------------------------------------------------------#
+# --- DO NOT CHANGE ANYTHING BELOW THIS LINE UNLESS YOU HAVE A FUCKING GOOD REASON TO DO SO! ---#
+# ----------------------------------------------------------------------------------------------#
+#
+# Mise en forme du tableau des dépenses et calcul des totaux par poste et par famille#
+depenses <- as.matrix(as.data.frame(depenses))#
+dimnames(depenses) <- list(postes.depenses,participants)#
+#
+dep.indiv <- apply(depenses,2,sum)#
+Total <- dep.indiv#
+dep2 <- rbind(depenses,Total)#
+dep.po <- apply(dep2,1,sum)#
+dep3 <- cbind(dep2,dep.po)#
+dimnames(dep3) <- list(c(postes.depenses,"Total"),c(participants,"Total"))#
+# Calcul du coût d'une nuité et d'un repas ainsi que du coût unitaire de la catégorie "autre"#
+cout.individuel <- dep.po[-length(dep.po)]/c(sum(nuitees),sum(repas),sum(nuitees))#
+#
+# Calcul des coût pour chaque poste et chaque famille#
+cout.logement <- cout.individuel[1] * nuitees#
+cout.nourriture <- cout.individuel[2] * repas#
+cout.autre <- cout.individuel[3]*nuitees#
+#
+# Mise en forme du tableau des couts par famille#
+couts <- rbind(cout.logement, cout.nourriture, cout.autre)#
+couts2 <- rbind(couts, apply(couts,2,sum))#
+dimnames(couts) <- list(postes.depenses,participants)#
+dimnames(couts2) <- list(c(postes.depenses,"Total"),participants)#
+#
+# Calcul des écarts entre ce qui a été payé par chaque famille et ce qui est dû#
+ecarts.par.famille <- Total - couts2[nrow(couts2),]#
+#
+# ------------------------------------------------------------------------------------------#
+# Bilan !#
+#
+## Affichage du tableau des dépenses#
+round(dep3)#
+#
+## Affichage du tableau des coûts par famille#
+round(couts2)#
+#
+## Affichage des écarts : les négatifs doivent aux positifs#
+round(ecarts.par.famille)#
+#
+dispatch(ecarts.par.famille, round=0)
+# Ceci est un commentaire sans accent#
+# Mais par là, il y en a un#
+2+8#
+#
+# dat <- c("Jean", "Benoît", "Céline")#
+dat <- c("Jean", "Benoît", "Céline")#
+dat
+expand.grid(1:4,1:25)
+expand.grid(city=letters(1:4), age=factor(1:25))
+expand.grid(city=letters[1:4], age=factor(1:25))
+dat <- data.frame(expand.grid(city=letters[1:4], age=factor(1:25)),x=rnorm(100))
+head(dat)
+dat[,2]
+dat <- data.frame(expand.grid(city=letters[1:4], age=factor(1:25)),x=rnorm(100))#
+#
+out <- aov(x~city*age, data = dat)#
+summary(out)#
+plot(out)#
+confint(out)
+confint(out)
+library(ggplot2)
+gg <- ggplot(data=dat, aes(x=x, y=age)) + geom_point() + facet_wrap(date$city)
+gg <- ggplot(data=dat, aes(x=x, y=age)) + geom_point() + facet_grid(date$city)
+gg <- ggplot(data=dat, aes(x=x, y=age)) + geom_point()#
+gg
+gg <- ggplot(data=dat, aes(x=x, y=age)) + geom_point() + facet_grid(city ~ .)#
+gg
+gg <- ggplot(data=dat, aes(x=x, y=age)) + geom_point() + facet_grid(. ~ city)#
+gg
+gg <- ggplot(data=dat, aes(x=x, y=age)) + geom_point() + facet_wrap(. ~ city, ncol=2)#
+gg
+gg <- ggplot(data=dat, aes(x=x, y=age)) + geom_point() + facet_wrap( ~ city, ncol=2)#
+gg
+list.files(system.file('enc', package = 'grDevices'))
+A <- c(10,12,8,10,6,10,8,9)                                      ( ce sont des valeurs et vecteurs arbitraires) #
+B <- c(11,18,12,15,13, 13)#
+C <- c(7,11,9,10,0,11,7,9)#
+D <- c(12,9,11,10,7,8,13, 11)#
+#
+BCG <- data.frame(valeurs = c(A,B,C,D), cat = rep(letters[1:4], c(8,6,8,8)))
+library(knitr)
+?knit
+?iconv
+library(knitr)
+knit("~/Library/Application Support/Sublime Text 3/Packages/knitr/test_file.Rnw")
+knit("~/Library/Application Support/Sublime Text 3/Packages/knitr/test_file.Rnw",encoding="UTF-8")
+getwd()
+knit("~/Library/Application Support/Sublime Text 3/Packages/knitr/test_file.Rnw")
+?knit
+knit("~/Library/Application Support/Sublime Text 3/Packages/knitr/test_file.Rnw")
+update.packages("knitr")
+locale
+options()
+getOption("encoding")
+library(tikzDevice)
+update.packages("tikzDevice")
+getOption("tikzDefaulEngine")
+library(tikz)
+library(tikzDevice)
+getOption("tikzDefaulEngine")
+setOption("tikzDefaulEngine")
+?tikzDevice
+options(tikzDefaultEngine='xelatex')
+getOption("tikzDefaulEngine")
+options(tikzDefaultEngine=xelatex)
+library(marmap)
+?marmap
+library(ade4)
+?s.class
+5*5
+3*5+2*6
+?prop.test
+?fisher.test
+data <-matrix(c(227,751,193,541), ncol=2)#
+column1 <- c(227, 751)#
+probabilities <- c( 193/(193+541), 541/(193+541) )
+data
+column1
+probabilities
+chisq.test(data)#
+chisq.test(column1, p= probabilities)
+?arcsin
+?fisher.test
+install.packages("bReeze")
+library(bReeze)
+example(plotPolar)
+?bReeze
+example(ploar.plot)
+example(polar.plot)
+data(winddata)#
+set40 <- set(height=40, v.avg=winddata[,2], dir.avg=winddata[,14])#
+set30 <- set(height=30, v.avg=winddata[,6], dir.avg=winddata[,16])#
+set20 <- set(height=20, v.avg=winddata[,10])#
+ts <- timestamp(timestamp=winddata[,1])#
+neubuerg <- mast(timestamp=ts, set40, set30, set20)#
+neubuerg <- clean(mast=neubuerg)
+polar.plot(mast=neubuerg)
+polar.plot(mast=neubuerg, v.set=3, dir.set=2)
+polar.plot(mast=neubuerg, v.set="set3", dir.set="set2")	# same as above
+polar.plot(mast=neubuerg,  #
+  subset=c("2010-01-01 00:00:00", NA)) # just 'start' time stamp
+legend
+plot(rnorm(100))
+par("usr")
+points(0,par("usr")[1],col=2)
+points(0,par("usr")[1]+10,col=2)
+points(par("usr")[1], 0,col=2)
+library(compteR)#
+#
+# Postes de dépenses et dépenses par famille#
+postes.depenses <- c("logement", "nourriture", "autre")#
+depenses <- list(#
+dep.auv = c(360+205, 75.8-28.40+31, 73.5),#
+dep.cre = c(330+235, 189.50, 0),#
+dep.dum = c(000+424, 0, 0),#
+dep.gai = c(330+235, 120, 0),#
+dep.seg = c(300+266, 81, 250),#
+dep.sim = c(330+235, 80-8, 0)#
+)#
+#
+# -------------------------------------------------------------------------#
+#
+# Liste des participants et nombre de personnes par famille#
+participants <- c("Auvray", "Cresson", "Dumas", "Gaitee", "Seguinaud", "Simon-Bouhet")#
+famille <- c(4, 4, 3, 4, 4, 4)#
+#
+# Nombre de nuitées et de repas par famille#
+nuitees <- c(28,24,21,28,28,28)#
+repas <- c(84,63+9,63,84,84,84)#
+#
+# -------------------------------------------------------------------------#
+# ---------------- DO NOT CHANGE ANYTHING BELOW THIS LINE -----------------#
+# ------------ UNLESS YOU HAVE A FUCKING GOOD REASON TO DO SO! ------------#
+# -------------------------------------------------------------------------#
+#
+# Mise en forme du tableau des dépenses et calcul des totaux par poste et par famille#
+depenses <- as.matrix(as.data.frame(depenses))#
+dimnames(depenses) <- list(postes.depenses,participants)#
+#
+dep.indiv <- apply(depenses,2,sum)#
+Total <- dep.indiv#
+dep2 <- rbind(depenses,Total)#
+dep.po <- apply(dep2,1,sum)#
+dep3 <- cbind(dep2,dep.po)#
+dimnames(dep3) <- list(c(postes.depenses,"Total"),c(participants,"Total"))#
+# Calcul du coût d'une nuité et d'un repas #
+# ainsi que du coût unitaire de la catégorie "autre"#
+cout.individuel <- dep.po[-length(dep.po)]/c(sum(nuitees),sum(repas),sum(nuitees))#
+#
+# Calcul des coût pour chaque poste et chaque famille#
+cout.logement <- cout.individuel[1] * nuitees#
+cout.nourriture <- cout.individuel[2] * repas#
+cout.autre <- cout.individuel[3]*nuitees#
+#
+# Mise en forme du tableau des couts par famille#
+couts <- rbind(cout.logement, cout.nourriture, cout.autre)#
+couts2 <- rbind(couts, apply(couts,2,sum))#
+dimnames(couts) <- list(postes.depenses,participants)#
+dimnames(couts2) <- list(c(postes.depenses,"Total"),participants)#
+#
+# Calcul des écarts entre ce qui a été payé par chaque famille#
+# et ce qui est dû#
+ecarts.par.famille <- Total - couts2[nrow(couts2),]#
+#
+# -------------------------------------------------------------------------#
+#
+# Bilan !#
+## Affichage du tableau des dépenses#
+round(dep3)#
+#
+## Affichage du tableau des coûts par famille#
+round(couts2)#
+#
+## Affichage des écarts : les négatifs doivent aux positifs#
+round(ecarts.par.famille)#
+#
+dispatch(ecarts.par.famille)
+obs <- c(23,65,12)
+chisq.test(obs)
+n.tot <- sum(obs)p <- (2 * obs[1] + obs[2])/(2 * n.tot)q <- (2 * obs[3] + obs[2])/(2 * n.tot)att <- c(n.tot * p^2, 2 * n.tot * p * q, n.tot * q^2)
+att
+p
+q
+obs <- c(25,65,10)
+n.tot <- sum(obs)p <- (2 * obs[1] + obs[2])/(2 * n.tot)q <- (2 * obs[3] + obs[2])/(2 * n.tot)att <- c(n.tot * p^2, 2 * n.tot * p * q, n.tot * q^2)
+p
+obs <- c(25,60,15)
+n.tot <- sum(obs)p <- (2 * obs[1] + obs[2])/(2 * n.tot)q <- (2 * obs[3] + obs[2])/(2 * n.tot)att <- c(n.tot * p^2, 2 * n.tot * p * q, n.tot * q^2)
+p
+obs <- c(30,60,10)
+n.tot <- sum(obs)p <- (2 * obs[1] + obs[2])/(2 * n.tot)q <- (2 * obs[3] + obs[2])/(2 * n.tot)att <- c(n.tot * p^2, 2 * n.tot * p * q, n.tot * q^2)
+p
+q
+chisq.test(obs, p = att, rescale = T)
+1-pchisq(6.25, df=1)
+obs
+att
+90/200
+120/200
+(1:15)^2
+(1:20)^2
+dat <- data.frame(a = c(2,3,5,4,1,2,3,4,5,2), b = c(3,2,5,6,5,6,6,7,6,4))
+dat
+dat <- data.frame(a = c(2,3,5,4,1,2,3,4,5,2), b = c(3,2,5,6,5,6,6,7,6,4))#
+#
+dat$diff.a <- c(NA, diff(dat$a))#
+#
+dat
+memory.limit()
+?memory.limit()
+library(compteR)#
+#
+# Postes de dépenses et dépenses par famille#
+postes.depenses <- c("logement", "nourriture", "autre")#
+depenses <- list(#
+dep.auv = c(360+205, 75.8-28.40+31, 73.5),#
+dep.cre = c(330+235, 189.50, 0),#
+dep.dum = c(000+424, 55, 0),#
+dep.gai = c(330+235, 120, 0),#
+dep.seg = c(300+266, 81, 250),#
+dep.sim = c(330+235, 80-8, 0)#
+)#
+#
+# -------------------------------------------------------------------------#
+#
+# Liste des participants et nombre de personnes par famille#
+participants <- c("Auvray", "Cresson", "Dumas", "Gaitee", "Seguinaud", "Simon-Bouhet")#
+famille <- c(4, 4, 3, 4, 4, 4)#
+#
+# Nombre de nuitées et de repas par famille#
+nuitees <- c(28,24,21,28,28,28)#
+repas <- c(84,63+9,63,84,84,84)#
+#
+# -------------------------------------------------------------------------#
+# ---------------- DO NOT CHANGE ANYTHING BELOW THIS LINE -----------------#
+# ------------ UNLESS YOU HAVE A FUCKING GOOD REASON TO DO SO! ------------#
+# -------------------------------------------------------------------------#
+#
+# Mise en forme du tableau des dépenses et calcul des totaux par poste et par famille#
+depenses <- as.matrix(as.data.frame(depenses))#
+dimnames(depenses) <- list(postes.depenses,participants)#
+#
+dep.indiv <- apply(depenses,2,sum)#
+Total <- dep.indiv#
+dep2 <- rbind(depenses,Total)#
+dep.po <- apply(dep2,1,sum)#
+dep3 <- cbind(dep2,dep.po)#
+dimnames(dep3) <- list(c(postes.depenses,"Total"),c(participants,"Total"))#
+# Calcul du coût d'une nuité et d'un repas #
+# ainsi que du coût unitaire de la catégorie "autre"#
+cout.individuel <- dep.po[-length(dep.po)]/c(sum(nuitees),sum(repas),sum(nuitees))#
+#
+# Calcul des coût pour chaque poste et chaque famille#
+cout.logement <- cout.individuel[1] * nuitees#
+cout.nourriture <- cout.individuel[2] * repas#
+cout.autre <- cout.individuel[3]*nuitees#
+#
+# Mise en forme du tableau des couts par famille#
+couts <- rbind(cout.logement, cout.nourriture, cout.autre)#
+couts2 <- rbind(couts, apply(couts,2,sum))#
+dimnames(couts) <- list(postes.depenses,participants)#
+dimnames(couts2) <- list(c(postes.depenses,"Total"),participants)#
+#
+# Calcul des écarts entre ce qui a été payé par chaque famille#
+# et ce qui est dû#
+ecarts.par.famille <- Total - couts2[nrow(couts2),]#
+#
+# -------------------------------------------------------------------------#
+#
+# Bilan !#
+## Affichage du tableau des dépenses#
+round(dep3)#
+#
+## Affichage du tableau des coûts par famille#
+round(couts2)#
+#
+## Affichage des écarts : les négatifs doivent aux positifs#
+round(ecarts.par.famille)#
+#
+dispatch(ecarts.par.famille)
+library(ggplot2)#
+#
+dat <- data.frame(a=1:30, b=sort(rnorm(30)))#
+ggplot(data=dat, aes(x=a, y=b)) + geom_point() + geom_smooth()
+library(ggplot2)#
+#
+dat <- data.frame(a=1:30, b=sort(rnorm(30)))#
+gg <- ggplot(data=dat, aes(x=a, y=b)) + geom_point() + geom_smooth()#
+gg
+unclass(gg)
+gg$layers[[2]]
+unclass(gg$layers[[2]])
+smooth_vals = predict(loess(b~a,dst), dat$a)
+smooth_vals = predict(loess(b~a,dat), dat$a)
+plot(a,b)
+plot(dat$a,dat$b)
+lines(smooth_vals)
+dev.new()
+gg
+?loess
+plot(dat)
+library(ggplot2)
+q<-qplot(carat,price,data=diamonds, geom=c("hex"),#
+main="Variability of Diamond Prices by Carat and Colour")
+q
+install.package("hexbin")
+install.packages("hexbin")
+q
+q+facet_wrap(~color,ncol=2)+geom_smooth(aes(group=1),colour=I("black"))
+dat <- data.frame(commune=rep(letters[1:4], each=15), abondance=sample(1:10,60,rep=T))
+dat
+tapply(dat$abondance, dat$commune)
+tapply(dat$abondance, dat$commune, sum)
+a <- sample(1:100, 30, replace=T)#
+b <- rnorm(30, mean-10, sd=2)
+b <- rnorm(30, mean=10, sd=2)
+a
+b
+plot(a,b)
+out <- lm(b~a)
+out#
+summary(out)#
+abline(out)
+confint(out)
+unclass(out)
+par(mfrow=c(2,2))#
+plot(out)
+c <- rnorm(30, mean=10, sd=2)
+a
+c
+a <- sample(1:100, 30, replace=T)#
+c <- sample(1:100, 30, replace=T)
+a
+c
+t.test(a,c)
+time <- 1:100#
+a <- c(rep(1,99),10)+rnorm(100)
+a <- sample(a,100)
+plot(time,a)
+boxplot(a)
+res <- boxplot(a)
+res
+which(a==res$out)
+which(a==res$out[1])
+res <- boxplot(a)#
+#
+index <- numeric()#
+for (i in 1:length(res$out)) {#
+	index[i] <- which(a==res$out[i])	#
+}
+index
+a
+color <- rep("black", length(a))#
+color[index] <- "red"#
+#
+plot(time,a, col=color)
+seuil <- min(res$out)#
+couleur <- c("black","red")
+a>=seuil
+plot(time, a, col=couleur[a>=seuil])
+couleur[a>=seuil]
+a>=seuil + 1
+(a>=seuil) + 1
+plot(time, a, col=couleur[(a>=seuil) + 1])
+?loess
+out
+unclass(out)
+library(knitr)
+?kable
+library(marmap)
+?marmap
+library(help="marmap")
+?library(help="marmap")
+vignettes(package="marmap")
+vignette(package="marmap")
+library(marmap)
+library(help="marmap")
+?celt
+example(celt)
+example(create.buffer)
+example(florida)
+example(combine.buffers)
+example(get.area)
+example(linesGC)
+example(outline.buffer)
+example(create.buffer)
+?create.buffer
+data(florida)#
+plot(florida, lwd = 0.2)#
+plot(florida, n = 1, lwd = 0.7, add = TRUE)#
+#
+# add points around which a buffer will be computed#
+loc <- data.frame(c(-80,-82), c(26,24))#
+points(loc, pch = 19, col = "red")#
+#
+# create 2 distinct buffer objects with different radii#
+buf1 <- create.buffer(florida, loc[1,], radius=1.9)#
+buf2 <- create.buffer(florida, loc[2,], radius=1.2)#
+#
+# combine both buffers#
+buf <- combine.buffers(buf1,buf2)#
+#
+## Not run: #
+# Add outline of the resulting buffer in red #
+# and the outline of the original buffers in blue#
+plot(outline.buffer(buf), lwd = 3, col = 2, add=TRUE)#
+plot(buf1, lwd = 0.5, fg="blue")#
+plot(buf2, lwd = 0.5, fg="blue")
+example(plot.buffer)
+example(get.transect)
+# load and plot a bathymetry#
+data(florida)#
+plot(florida, lwd = 0.2)#
+plot(florida, n = 1, lwd = 0.7, add = TRUE)#
+#
+# add a point around which a buffer will be created#
+loc <- data.frame(-80, 26)#
+points(loc, pch = 19, col = "red")#
+#
+# compute and print buffer#
+buf <- create.buffer(florida, loc, radius=1.5)#
+buf#
+#
+# highlight isobath with the buffer and add outline#
+plot(buf, outline=FALSE, n = 10, col = 2, lwd=.4)#
+plot(buf, lwd = 0.7, fg = 2)
+library(help="marmap")
+vignette("marmap-DataAnalysis")
+help.search("wilcoxon")
+?Wilcoxon
+rwilcox(100, 48,52)
+rwilcox(100, 48,53)
+hist(rwilcox(100, 48,53))
+update.packages()
+dat <- data.frame(expand.grid(city=letters[1:4], age=factor(1:25)),x=rnorm(100))#
+#
+out <- aov(x~city*age, data = dat)#
+summary(out)#
+plot(out)#
+confint(out)#
+#
+library(ggplot2)#
+#
+gg <- ggplot(data=dat, aes(x=x, y=age)) + geom_point() + facet_wrap( ~ city, ncol=2)#
+gg
+confint(out)#
+#
+library(ggplot2)#
+#
+gg <- ggplot(data=dat, aes(x=x, y=age)) + geom_point() + facet_wrap( ~ city, ncol=2)#
+gg
+gg
+2-3
+3-
+5
+3-
+3-5
+help.search("wilcoxon")
+log(1.8)
+log(28)
+?log
+log10(28)
+log(28, base=10)
+toto
+bonjour
+"bonjour"
+install.packages("marmap")
+library(marmap)
+vignette(package = "marmap")
+vignette("marmap-DataAnalysis")
+library(help = "marmap")
+example(create.buffer)
+# Mise en mémoire des packages utiles#
+library(marmap)#
+library(shape)#
+library(raster)
+getwd()
+# Download bathymetry for North Atlantic#
+dat <- getNOAA.bathy(-90,10, 0, 70, res=7, keep=TRUE)
+# Create subsets for land and sea in two distinct bathy objects#
+ll <- dat ; ll[ll<0] <- NA#
+ss <- dat ; ss[ss>=0] <- NA#
+#
+# Create layers containing data for only a specified depth range for appropriate coloring #
+ z1 <- dat ;  z1[ z1 >= -5000 |  z1 < min(dat)] <- NA#
+ z2 <- dat ;  z2[ z2 >= -3000 |  z2 <    -5000] <- NA#
+ z3 <- dat ;  z3[ z3 >= -2000 |  z3 <    -3000] <- NA#
+ z4 <- dat ;  z4[ z4 >= -1000 |  z4 <    -2000] <- NA#
+ z5 <- dat ;  z5[ z5 >=  -750 |  z5 <    -1000] <- NA#
+ z6 <- dat ;  z6[ z6 >=  -500 |  z6 <     -750] <- NA#
+ z7 <- dat ;  z7[ z7 >=  -250 |  z7 <     -500] <- NA#
+ z8 <- dat ;  z8[ z8 >=  -100 |  z8 <     -250] <- NA#
+ z9 <- dat ;  z9[ z9 >=   -50 |  z9 <     -100] <- NA#
+z10 <- dat ; z10[z10 >=     0 | z10 <      -50] <- NA
+# Create a layer containing shading information for the map#
+ra <- marmap::as.raster(dat)#
+slope <- terrain(ra, opt='slope')#
+aspect <- terrain(ra, opt='aspect')#
+ra.shade <- hillShade(slope, aspect, angle = 40, direction = 270)#
+shade <- as.bathy(ra.shade)
+# Create color palettes for land and sea#
+sea <- c("#E7E8B0","#CED69B","#B7D091","#A5D38E","#9AD790","#97D593","#87D1DA","#87B9E3","#84A8DA","#8E8DCC")#
+greys <- c(grey(0.3), grey(0.38), grey(0.40))#
+bl <- colorRampPalette(sea)#
+gr <- colorRampPalette(greys)
+par(mar=c(4,4,2,7)) # Get some extra space in the right margin to add the color scale
+plot(shade, image = TRUE, land = TRUE, lwd = 0, bpal = grey(30:100/100), las=1) # Shadows layer
+plot(   z1, image = TRUE, land = TRUE, lwd = 0, add=TRUE, bpal = col2alpha(sea[10], 0.5)) # Add one layer at a time with alpha transparency
+plot(   z2, image = TRUE, land = TRUE, lwd = 0, add=TRUE, bpal = col2alpha(sea[ 9], 0.5)) # Add one layer at a time with alpha transparency
+plot(   z3, image = TRUE, land = TRUE, lwd = 0, add=TRUE, bpal = col2alpha(sea[ 8], 0.5)) # Add one layer at a time with alpha transparency#
+plot(   z4, image = TRUE, land = TRUE, lwd = 0, add=TRUE, bpal = col2alpha(sea[ 7], 0.5)) # Add one layer at a time with alpha transparency#
+plot(   z5, image = TRUE, land = TRUE, lwd = 0, add=TRUE, bpal = col2alpha(sea[ 6], 0.5)) # Add one layer at a time with alpha transparency#
+plot(   z6, image = TRUE, land = TRUE, lwd = 0, add=TRUE, bpal = col2alpha(sea[ 5], 0.5)) # Add one layer at a time with alpha transparency#
+plot(   z7, image = TRUE, land = TRUE, lwd = 0, add=TRUE, bpal = col2alpha(sea[ 4], 0.5)) # Add one layer at a time with alpha transparency#
+plot(   z8, image = TRUE, land = TRUE, lwd = 0, add=TRUE, bpal = col2alpha(sea[ 3], 0.5)) # Add one layer at a time with alpha transparency#
+plot(   z9, image = TRUE, land = TRUE, lwd = 0, add=TRUE, bpal = col2alpha(sea[ 2], 0.5)) # Add one layer at a time with alpha transparency#
+plot(  z10, image = TRUE, land = TRUE, lwd = 0, add=TRUE, bpal = col2alpha(sea[ 1], 0.5)) # Add one layer at a time with alpha transparency
+plot(ll, image = TRUE, land = T, lwd = 0, add=TRUE, bpal = col2alpha(gr(100), 0.7))	# Same for land
+plot(dat, deep =     0, shallow =     0, step = 0, lwd = 0.40, add = TRUE) # Add coastline
+plot(dat, deep =   -50, shallow =   -50, step = 0, lwd = 0.08, add = TRUE) # Add   -50m isobath#
+plot(dat, deep =  -100, shallow =  -100, step = 0, lwd = 0.08, add = TRUE) # Add  -100m isobath#
+plot(dat, deep =  -250, shallow =  -250, step = 0, lwd = 0.08, add = TRUE) # Add  -250m isobath#
+plot(dat, deep =  -500, shallow =  -500, step = 0, lwd = 0.08, add = TRUE) # Add  -500m isobath#
+plot(dat, deep =  -750, shallow =  -750, step = 0, lwd = 0.08, add = TRUE) # Add  -750m isobath#
+plot(dat, deep = -1000, shallow = -1000, step = 0, lwd = 0.08, add = TRUE) # Add -1000m isobath#
+plot(dat, deep = -2000, shallow = -2000, step = 0, lwd = 0.08, add = TRUE) # Add -2000m isobath#
+plot(dat, deep = -3000, shallow = -3000, step = 0, lwd = 0.08, add = TRUE) # Add -3000m isobath#
+plot(dat, deep = -5000, shallow = -5000, step = 0, lwd = 0.08, add = TRUE) # Add -5000m isobath#
+plot(dat, deep = -9000, shallow = -9000, step = 0, lwd = 0.08, add = TRUE) # Add -9000m isobath
+getwd()
+?library
+ls()
+loc
+?mean
+library(marmap) ; library(shape) ; library(raster)#
+#
+# Download bathymetry for North Atlantic#
+dat <- getNOAA.bathy(-90,10, 0, 70, res=15, keep=TRUE)#
+#
+# Create subsets for land and sea in two distinct bathy objects#
+ll <- dat ; ll[ll<0] <- NA#
+ss <- dat ; ss[ss>=0] <- NA#
+#
+# Create layers containing data for only a specified depth range for appropriate coloring #
+ z1 <- dat ;  z1[ z1 >= -5000 |  z1 < min(dat)] <- NA#
+ z2 <- dat ;  z2[ z2 >= -3000 |  z2 <    -5000] <- NA#
+ z3 <- dat ;  z3[ z3 >= -2000 |  z3 <    -3000] <- NA#
+ z4 <- dat ;  z4[ z4 >= -1000 |  z4 <    -2000] <- NA#
+ z5 <- dat ;  z5[ z5 >=  -750 |  z5 <    -1000] <- NA#
+ z6 <- dat ;  z6[ z6 >=  -500 |  z6 <     -750] <- NA#
+ z7 <- dat ;  z7[ z7 >=  -250 |  z7 <     -500] <- NA#
+ z8 <- dat ;  z8[ z8 >=  -100 |  z8 <     -250] <- NA#
+ z9 <- dat ;  z9[ z9 >=   -50 |  z9 <     -100] <- NA#
+z10 <- dat ; z10[z10 >=     0 | z10 <      -50] <- NA#
+#
+# Create a layer containing shading information for the map#
+ra <- marmap::as.raster(dat)#
+slope <- terrain(ra, opt='slope')#
+aspect <- terrain(ra, opt='aspect')#
+ra.shade <- hillShade(slope, aspect, angle = 40, direction = 270)#
+shade <- as.bathy(ra.shade)#
+#
+# Create color palettes for land and sea#
+sea <- c("#E7E8B0","#CED69B","#B7D091","#A5D38E","#9AD790","#97D593","#87D1DA","#87B9E3","#84A8DA","#8E8DCC")#
+greys <- c(grey(0.3), grey(0.38), grey(0.40))#
+bl <- colorRampPalette(sea)#
+gr <- colorRampPalette(greys)#
+#
+### Plot with shadows#
+par(mar=c(4,4,2,7)) # Get some extra space in the right margin to add the color scale#
+plot(shade, image = TRUE, land = TRUE, lwd = 0, bpal = grey(30:100/100), las=1) # Shadows layer#
+plot(   z1, image = TRUE, land = TRUE, lwd = 0, add=TRUE, bpal = col2alpha(sea[10], 0.5)) # Add one layer at a time with alpha transparency#
+plot(   z2, image = TRUE, land = TRUE, lwd = 0, add=TRUE, bpal = col2alpha(sea[ 9], 0.5)) # Add one layer at a time with alpha transparency#
+plot(   z3, image = TRUE, land = TRUE, lwd = 0, add=TRUE, bpal = col2alpha(sea[ 8], 0.5)) # Add one layer at a time with alpha transparency#
+plot(   z4, image = TRUE, land = TRUE, lwd = 0, add=TRUE, bpal = col2alpha(sea[ 7], 0.5)) # Add one layer at a time with alpha transparency#
+plot(   z5, image = TRUE, land = TRUE, lwd = 0, add=TRUE, bpal = col2alpha(sea[ 6], 0.5)) # Add one layer at a time with alpha transparency#
+plot(   z6, image = TRUE, land = TRUE, lwd = 0, add=TRUE, bpal = col2alpha(sea[ 5], 0.5)) # Add one layer at a time with alpha transparency#
+plot(   z7, image = TRUE, land = TRUE, lwd = 0, add=TRUE, bpal = col2alpha(sea[ 4], 0.5)) # Add one layer at a time with alpha transparency#
+plot(   z8, image = TRUE, land = TRUE, lwd = 0, add=TRUE, bpal = col2alpha(sea[ 3], 0.5)) # Add one layer at a time with alpha transparency#
+plot(   z9, image = TRUE, land = TRUE, lwd = 0, add=TRUE, bpal = col2alpha(sea[ 2], 0.5)) # Add one layer at a time with alpha transparency#
+plot(  z10, image = TRUE, land = TRUE, lwd = 0, add=TRUE, bpal = col2alpha(sea[ 1], 0.5)) # Add one layer at a time with alpha transparency#
+#
+plot(ll, image = TRUE, land = T, lwd = 0, add=TRUE, bpal = col2alpha(gr(100), 0.7))	# Same for land#
+#
+plot(dat, deep =     0, shallow =     0, step = 0, lwd = 0.40, add = TRUE) # Add coastline#
+plot(dat, deep =   -50, shallow =   -50, step = 0, lwd = 0.08, add = TRUE) # Add   -50m isobath#
+plot(dat, deep =  -100, shallow =  -100, step = 0, lwd = 0.08, add = TRUE) # Add  -100m isobath#
+plot(dat, deep =  -250, shallow =  -250, step = 0, lwd = 0.08, add = TRUE) # Add  -250m isobath#
+plot(dat, deep =  -500, shallow =  -500, step = 0, lwd = 0.08, add = TRUE) # Add  -500m isobath#
+plot(dat, deep =  -750, shallow =  -750, step = 0, lwd = 0.08, add = TRUE) # Add  -750m isobath#
+plot(dat, deep = -1000, shallow = -1000, step = 0, lwd = 0.08, add = TRUE) # Add -1000m isobath#
+plot(dat, deep = -2000, shallow = -2000, step = 0, lwd = 0.08, add = TRUE) # Add -2000m isobath#
+plot(dat, deep = -3000, shallow = -3000, step = 0, lwd = 0.08, add = TRUE) # Add -3000m isobath#
+plot(dat, deep = -5000, shallow = -5000, step = 0, lwd = 0.08, add = TRUE) # Add -5000m isobath#
+plot(dat, deep = -9000, shallow = -9000, step = 0, lwd = 0.08, add = TRUE) # Add -9000m isobath#
+#
+### Create color scale#
+lev <- rev(c(0, 50, 100, 250, 500, 750, 1000, 2000, 3000, 5000, 9000)) # Labels for the scale#
+col <- rev(sea)  # Colors for the scale#
+offset <- 3 # Distance between the map and the left side of the scale#
+#
+# Some dirty code found online and slightly modified to adjust the position and width of the scale#
+opar <- par ; n <- length(col) ; bx <- par("usr") #
+box.cx <- c(bx[2] + (bx[2] - bx[1]) / 1000, bx[2] + (bx[2] - bx[1]) / 1000 + (bx[2] - bx[1]) / 50)#
+box.cy <- c(bx[3], bx[3]) ; box.sy <- (bx[4] - bx[3]) / n #
+xx <- rep(box.cx, each = 2)#
+# Draw colored rectangles#
+par(xpd = TRUE)#
+for(i in 1:n){#
+  yy <- c(box.cy[1] + (box.sy * (i - 1)),#
+  box.cy[1] + (box.sy * (i)),#
+  box.cy[1] + (box.sy * (i)),#
+  box.cy[1] + (box.sy * (i - 1)))#
+  polygon(xx+offset, yy, col = col[i], border = 1)#
+}#
+#
+# Add scale title: use locator() to find appropriate coordinates#
+text(x=15.25, y=yy[2] + 2, "depth (m)")#
+#
+# Add scale labels#
+par(new = TRUE)#
+plot(0, 0, type = "n", ylim = c(min(lev), max(lev)), yaxt = "n", ylab = "", xaxt = "n", xlab = "", frame.plot = FALSE)#
+bx2 <- par("usr")#
+axis(side = 4, las = 2, tick = FALSE, line = 1.5, at=seq(bx2[3], bx2[4], length.out=length(lev)), labels=lev)#
+par <- opar
+wine
+data(wine)
+data()

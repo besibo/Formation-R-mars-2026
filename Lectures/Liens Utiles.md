@@ -11,7 +11,7 @@
 
 - [R for data science](https://r4ds.hadley.nz)
 - [R Graph gallery](https://www.r-graph-gallery.com)
-- [R colors](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf)
+- [R colors](https://r-charts.com/colors/)
 
 ---
 *Benoît Simon-Bouhet*, *lundi 16 mars 2026*

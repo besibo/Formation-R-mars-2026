@@ -1,0 +1,5 @@
+"Jour";"Vent";"Soleil";"ident"
+"Lundi";15;TRUE;1
+"Mardi";23;TRUE;2
+"Jeudi";NA;TRUE;3
+"Dimanche";45;FALSE;4
